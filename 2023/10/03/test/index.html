@@ -5,7 +5,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="test, lskn">
-    <meta name="description" content="">
+    <meta name="description" content="apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab
+spec:
+  type: NodePort
+  ports:
+  # Port上的映射端口
+  - port: 443
+    t">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +31,7 @@
     
     <style>
         body{
-            background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+            background-image: url(https://www.imageoss.com/images/2023/10/03/-------4k_f1b5c648f69c8bd9.jpg);
             background-repeat:no-repeat;
             background-size: 100% 100%;
             background-attachment:fixed;
@@ -393,14 +402,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-10-03
+                    2023-10-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    183
                 </div>
                 
 
@@ -430,7 +439,81 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token comment"># Port上的映射端口</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">443</span>
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">443</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab443
+  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab80
+  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">22</span>
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">22</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab22
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> gitlab
+ 
+<span class="token punctuation">---</span>
+ 
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> gitlab
+  <span class="token key atrule">revisionHistoryLimit</span><span class="token punctuation">:</span> <span class="token number">2</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> gitlab
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token comment"># 应用的镜像</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> gitlab/gitlab<span class="token punctuation">-</span>ce 
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token comment"># 应用的内部端口</span>
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">443</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab443
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab80
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">22</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab22
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token comment"># gitlab持久化</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>config
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /etc/gitlab
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>logs
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /var/log/gitlab
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>data
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /var/opt/gitlab
+      <span class="token key atrule">imagePullSecrets</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> devops<span class="token punctuation">-</span>repo
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token comment"># 使用nfs互联网存储</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>config
+        <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+          <span class="token key atrule">server</span><span class="token punctuation">:</span> 192.168.17.81
+          <span class="token key atrule">path</span><span class="token punctuation">:</span> /home/k8s<span class="token punctuation">-</span>nfs/gitlab/config
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>logs
+        <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+          <span class="token key atrule">server</span><span class="token punctuation">:</span> 192.168.17.81
+          <span class="token key atrule">path</span><span class="token punctuation">:</span> /home/k8s<span class="token punctuation">-</span>nfs/gitlab/logs
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> gitlab<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>data
+        <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+          <span class="token key atrule">server</span><span class="token punctuation">:</span> 192.168.17.81
+          <span class="token key atrule">path</span><span class="token punctuation">:</span> /home/k8s<span class="token punctuation">-</span>nfs/gitlab/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
                 
             </div>
             <hr/>
@@ -574,12 +657,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/10/03/abcdefg/">
+                <a href="/2023/10/03/k8s-bu-shu-gitlab-deployment-ji-yu-nfs-jin-xing-shu-ju-chi-jiu-hua-xue-liang-bian-cheng-shou-ji-de-bo-ke-csdn-bo-ke/">
                     <div class="card-image">
                         
-                        <img src="https://www.imageoss.com/images/2023/10/03/4k_baab68a236dc4e07.jpg" class="responsive-img" alt="abc">
+                        <img src="https://www.imageoss.com/images/2023/10/03/-4K_-3544101cdf9968995.jpg" class="responsive-img" alt="在 nfs 服务器创建共享目录，部署的 gitlib 使用共享目录来进行持久化">
                         
-                        <span class="card-title">abc</span>
+                        <span class="card-title">在 nfs 服务器创建共享目录，部署的 gitlib 使用共享目录来进行持久化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -594,11 +677,23 @@
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            lskn
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/kubernetes/" class="post-category">
+                                    kubernetes
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/kubernetes/">
+                        <span class="chip bg-color">kubernetes</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -832,7 +927,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">0</span>
+                        class="white-color">820</span>
             
             
             
