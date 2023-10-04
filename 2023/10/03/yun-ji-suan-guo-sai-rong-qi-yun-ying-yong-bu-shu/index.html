@@ -4,11 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="在 nfs 服务器创建共享目录，部署的 gitlib 使用共享目录来进行持久化, lskn">
-    <meta name="description" content="
-本文由 简悦 SimpRead 转码， 原文地址 blog.csdn.net
+    <meta name="keywords" content="云计算国赛 - 容器云应用部署, lskn">
+    <meta name="description" content="容器云应用部署
 
-准备工作1.1 创建 nfs 共享目录在 nfs 服务器创建共享目录，部署的 gitlib 使用共享目录来进行持久化，这样不管在哪个节点运行 gitlib 都">
+【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]
+
+【题目 1】容器化 MariaDB 服务 [1 分]
+【题目 2】容器化 Redis 服务 [1 分]
+【题目 3】容器化 Nginx ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +23,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>在 nfs 服务器创建共享目录，部署的 gitlib 使用共享目录来进行持久化 | lskn</title>
+    <title>云计算国赛 - 容器云应用部署 | lskn</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -348,12 +351,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://www.imageoss.com/images/2023/10/03/-4K_-3544101cdf9968995.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">在 nfs 服务器创建共享目录，部署的 gitlib 使用共享目录来进行持久化</h1>
+                    <h1 class="description center-align post-title">云计算国赛 - 容器云应用部署</h1>
                 </div>
             </div>
         </div>
@@ -377,8 +380,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/kubernetes/">
-                                <span class="chip bg-color">kubernetes</span>
+                            <a href="/tags/%E5%AE%B9%E5%99%A8%E4%BA%91/">
+                                <span class="chip bg-color">容器云</span>
                             </a>
                         
                     </div>
@@ -389,8 +392,12 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/kubernetes/" class="post-category">
-                                kubernetes
+                            <a href="/categories/%E8%B5%9B%E9%A2%98/" class="post-category">
+                                赛题
+                            </a>
+                        
+                            <a href="/categories/%E8%B5%9B%E9%A2%98/%E5%AE%B9%E5%99%A8%E4%BA%91/" class="post-category">
+                                容器云
                             </a>
                         
                     </div>
@@ -416,14 +423,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    637
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    8 分
                 </div>
                 
 
@@ -446,147 +453,196 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>本文由 <a target="_blank" rel="noopener" href="http://ksria.com/simpread/">简悦 SimpRead</a> 转码， 原文地址 <a target="_blank" rel="noopener" href="https://blog.csdn.net/a772304419/article/details/126622063">blog.csdn.net</a></p>
-</blockquote>
-<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="1-1-创建-nfs-共享目录"><a href="#1-1-创建-nfs-共享目录" class="headerlink" title="1.1 创建 nfs 共享目录"></a>1.1 创建 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=nfs&amp;spm=1001.2101.3001.7020">nfs</a> 共享目录</h2><p>在 nfs 服务器创建共享目录，部署的 gitlib 使用共享目录来进行持久化，这样不管在哪个节点运行 gitlib 都没有关系。</p>
-<pre class="line-numbers language-none"><code class="language-none"># mkdir -p /home/k8s-nfs/gitlab/config
-
-# mkdir -p /home/k8s-nfs/gitlab/logs
-
-# mkdir -p /home/k8s-nfs/gitlab/data
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="1-2-添加到共享"><a href="#1-2-添加到共享" class="headerlink" title="1.2 添加到共享"></a>1.2 添加到共享</h2><pre class="line-numbers language-none"><code class="language-none">vim /etc/exports
-/home/k8s-nfs/gitlab/config 192.168.17.0/8(rw,no_root_squash)
-/home/k8s-nfs/gitlab/logs 192.168.17.0/8(rw,no_root_squash)
-/home/k8s-nfs/gitlab/data 192.168.17.0/8(rw,no_root_squash)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="1-3-执行更新"><a href="#1-3-执行更新" class="headerlink" title="1.3 执行更新"></a>1.3 执行更新</h2><pre class="line-numbers language-none"><code class="language-none"># service nfs restart
-
-或者
-
-# exportfs -r<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<script async="" src="//www.imageoss.com/sdk/pup.js" data-url="https://www.imageoss.com/upload"></script>
-
-<h1 id="部署-gitlib"><a href="#部署-gitlib" class="headerlink" title="部署 gitlib"></a>部署 gitlib</h1><h2 id="2-1-准备部署文件（gitlib-deploy-yaml）"><a href="#2-1-准备部署文件（gitlib-deploy-yaml）" class="headerlink" title="2.1 准备部署文件（gitlib-deploy.yaml）"></a>2.1 准备部署文件（gitlib-deploy.yaml）</h2><pre class="line-numbers language-none"><code class="language-none">apiVersion: v1
-kind: Service
-metadata:
-  name: gitlab
-spec:
-  type: NodePort
-  ports:
-  # Port上的映射端口
-  - port: 443
-    targetPort: 443
-    name: gitlab443
-  - port: 80
-    targetPort: 80
-    name: gitlab80
-  - port: 22
-    targetPort: 22
-    name: gitlab22
-  selector:
-    app: gitlab
- 
----
- 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: gitlab
-spec:
-  selector:
-    matchLabels:
-      app: gitlab
-  revisionHistoryLimit: 2
-  template:
-    metadata:
-      labels:
-        app: gitlab
-    spec:
-      containers:
-      # 应用的镜像
-      - image: gitlab/gitlab-ce 
-        name: gitlab
-        imagePullPolicy: IfNotPresent
-        # 应用的内部端口
-        ports:
-        - containerPort: 443
-          name: gitlab443
-        - containerPort: 80
-          name: gitlab80
-        - containerPort: 22
-          name: gitlab22
-        volumeMounts:
-        # gitlab持久化
-        - name: gitlab-persistent-config
-          mountPath: /etc/gitlab
-        - name: gitlab-persistent-logs
-          mountPath: /var/log/gitlab
-        - name: gitlab-persistent-data
-          mountPath: /var/opt/gitlab
-      imagePullSecrets:
-      - name: devops-repo
-      volumes:
-      # 使用nfs互联网存储
-      - name: gitlab-persistent-config
-        nfs:
-          server: 192.168.17.81
-          path: /home/k8s-nfs/gitlab/config
-      - name: gitlab-persistent-logs
-        nfs:
-          server: 192.168.17.81
-          path: /home/k8s-nfs/gitlab/logs
-      - name: gitlab-persistent-data
-        nfs:
-          server: 192.168.17.81
-          path: /home/k8s-nfs/gitlab/data
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="2-2-执行部署"><a href="#2-2-执行部署" class="headerlink" title="2.2 执行部署"></a>2.2 执行部署</h2><pre class="line-numbers language-none"><code class="language-none"># kubectl apply -f gitlib-deploy.yaml
+                <h4 id="容器云应用部署"><a href="#容器云应用部署" class="headerlink" title="容器云应用部署"></a>容器云应用部署</h4><ul>
+<li><ul>
+<li><a href="#_2Docker_Compose_70__4">【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]</a></li>
+<li><ul>
+<li><a href="#_1_MariaDB_1__8">【题目 1】容器化 MariaDB 服务 [1 分]</a></li>
+<li><a href="#_2Redis_1__72">【题目 2】容器化 Redis 服务 [1 分]</a></li>
+<li><a href="#_3Nginx_05__101">【题目 3】容器化 Nginx 服务 [0.5 分]</a></li>
+<li><a href="#_4Hyperf_1__129">【题目 4】容器化 Hyperf 服务 [1 分]</a></li>
+<li><a href="#_5Hyperf_35__177">【题目 5】编排部署 Hyperf 框架 [3.5 分]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>前言：前三题都是常见的容器构建，而第四题的构建是自己推测的，存在一点问题，仅供学习参考，还未解决，最后的 docker-compose 则是借鉴的，是没啥问题的。</p>
+<p>有需要可以加群 q726922223 大家相互交流一下解题思路。</p>
+<h3 id="【任务-2】容器云应用部署：Docker-Compose-编排部署-7-0-分"><a href="#【任务-2】容器云应用部署：Docker-Compose-编排部署-7-0-分" class="headerlink" title="【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]"></a>【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]</h3><p>Hyperf 是一个高性能、高灵活性的渐进式 PHP <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%8D%8F%E7%A8%8B&amp;spm=1001.2101.3001.7020">协程</a>框架，内置协程服务器及大量常用的组件，性能较传统基于 PHP-FPM 的框架有质的提升，提供超高性能的同时，也保持着极其灵活的可扩展性。请根据要求完成数据库服务 MariaDB、缓存服务 Redis、微服务 Hyperf 及前端服务 Nginx 按照要求进行容器化。</p>
+<h4 id="【题目-1】容器化-MariaDB-服务-1-分"><a href="#【题目-1】容器化-MariaDB-服务-1-分" class="headerlink" title="【题目 1】容器化 MariaDB 服务 [1 分]"></a>【题目 1】容器化 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=MariaDB&amp;spm=1001.2101.3001.7020">MariaDB</a> 服务 [1 分]</h4><p>编写 Dockerfile 文件构建 hyperf-mariadb:v1.0 镜像，具体要求如下：（需要用到的软件包：<br>Hyperf.tar.gz）</p>
+<p>（1）基础镜像：centos:7.9.2009；<br>（2）完成 MariaDB 服务的安装；<br>（3）声明端口：3306；<br>（4）设置数据库 root 用户的密码为 root；<br>（5）将提供的数据库文件 hyperf_admin.sql 导入数据库；<br>（6）设置服务开机自启。<br>完成后构建镜像，并提交 master 节点的用户名、密码和 IP 地址到答题框。</p>
+<p>1，上传 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=centos%E9%95%9C%E5%83%8F&amp;spm=1001.2101.3001.7020">centos 镜像</a></p>
+<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 images]# docker load -i centos_7.9.2009.tar
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h2 id="2-3-查看部署结果"><a href="#2-3-查看部署结果" class="headerlink" title="2.3 查看部署结果"></a>2.3 查看部署结果</h2><pre class="line-numbers language-none"><code class="language-none"># kubectl get deploy 
+<p>2，构建初始化脚本</p>
+<pre class="line-numbers language-none"><code class="language-none">#mysql初始化自启动脚本
 
-NAME     READY   UP-TO-DATE   AVAILABLE   AGE
-gitlab   1/1     1            1           134m
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+[root@k8s-master-node1 Hyperf]# cat mysql_init.sh
+#!/bin/bash
+mysql_install_db --user=root
+mysqld_safe --user=root &amp;
+sleep 8
+mysqladmin -u root password 'root'
+mysql -uroot -proot -e "grant all on *.* to 'root'@'%' identified by 'root'; flush privileges;"
+mysql -uroot -proot -e " source /opt/hyperf_admin.sql;"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>以上说明部署完成。</p>
-<h1 id="gitlib-初始化"><a href="#gitlib-初始化" class="headerlink" title="gitlib 初始化"></a>gitlib 初始化</h1><h2 id="3-1-访问登录页面"><a href="#3-1-访问登录页面" class="headerlink" title="3.1 访问登录页面"></a>3.1 访问登录页面</h2><p>通过查看 service 映射的端口：</p>
-<pre class="line-numbers language-none"><code class="language-none"># kubectl get svc -o wide
+<p>3，配置 yum 源</p>
+<pre class="line-numbers language-none"><code class="language-none">#镜像本地yum源
+[root@k8s-master-node1 Hyperf]# cat local.repo
+[hypref]
+name=hypref
+baseurl=file:///root/yum
+gpgcheck=0
+enabled=1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                                   AGE    SELECTOR
-gitlab       NodePort    10.10.129.28    &lt;none&gt;        443:31326/TCP,80:31320/TCP,22:31515/TCP   137m   app=gitlab
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>4，开始构建</p>
+<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 Hyperf]# cat Dockerfile-mariadb
+FROM centos:centos7.9.2009
+MAINTAINER Chinaskills
+RUN rm -rf /etc/yum.repos.d/*
+COPY local.repo /etc/yum.repos.d/
+COPY yum /root/yum
+ENV LC_ALL en_US.UTF-8
+RUN yum -y install mariadb-server
+COPY sql /opt/
+COPY mysql_init.sh /opt/
+RUN bash /opt/mysql_init.sh
+EXPOSE 3306
+CMD ["mysqld_safe","--user=root"]
 
-<p>可以看到映射 80 端口的节点端口为：31320</p>
-<p>通过指定端口访问登录页：</p>
-<p><img src="https://img-blog.csdnimg.cn/62951a1a0eb344ce9d1cf0d8c7a941d1.png"></p>
-<h2 id="3-2-初始用户名和密码"><a href="#3-2-初始用户名和密码" class="headerlink" title="3.2 初始用户名和密码"></a>3.2 初始用户名和密码</h2><p>初始用户名为 root，初始密码 gitlib 自动创建，在如下文件中：</p>
-<pre class="line-numbers language-none"><code class="language-none">cat /etc/gitlab/initial_root_password
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+[root@k8s-master-node1 Hyperf]# docker build -t hyperf-mariadb:v1.0 -f Dockerfile-mariadb .
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>由于是容器部署，所以，需要进入到容器中，找到对应文件，拷贝密码进行登录。文件内容类似：</p>
-<pre class="line-numbers language-none"><code class="language-none"># WARNING: This value is valid only in the following conditions
+<ol>
+<li>镜像构建成功得 0.5 分；  </li>
+<li>数据库安装且导入数据成功得 0.5 分。</li>
+</ol>
+<h4 id="【题目-2】容器化-Redis-服务-1-分"><a href="#【题目-2】容器化-Redis-服务-1-分" class="headerlink" title="【题目 2】容器化 Redis 服务 [1 分]"></a>【题目 2】容器化 Redis 服务 [1 分]</h4><p>编写 Dockerfile 文件构建 hyperf-redis:v1.0 镜像，具体要求如下：（需要用到的软件包：<br>Hyperf.tar.gz）<br>（1）基础镜像：centos:7.9.2009；<br>（2）安装 Redis 服务；<br>（3）关闭保护模式；<br>（4）声明端口：6379；<br>（5）设置服务开机自启。<br>完成后构建镜像，并提交 master 节点的用户名、密码和 IP 地址到答题框。</p>
+<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 Hyperf]# cat Dockerfile-redis
+FROM centos:centos7.9.2009
+MAINTAINER huhy
+RUN rm -rf /etc/yum.repos.d/*
+COPY local.repo /etc/yum.repos.d/
+COPY yum /root/yum
+RUN yum -y install redis
+RUN sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf &amp;&amp; \
+   sed -i 's/protected-mode yes/protected-mode no/g' /etc/redis.conf
+EXPOSE 6379
+CMD ["/usr/bin/redis-server","/etc/redis.conf"]
 
-# 1. If provided manually (either via `GITLAB_ROOT_PASSWORD` environment variable or via `gitlab_rails['initial_root_passwo
-
-# 2. Password hasn't been changed manually, either via UI or via command line.
-
-#
-
-# If the password shown here doesn't work, you must reset the admin password following https://docs.gitlab.com/ee/security/
-
-Password: HCsr5VFAp28N*****************=
-
-# NOTE: This file will be automatically deleted in the first reconfigure run after 24 hours.
+[root@k8s-master-node1 Hyperf]# docker build -t hyperf-redis:v1.0 -f Dockerfile-redis .
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_52544877/article/details/125448793">https://blog.csdn.net/m0_52544877/article/details/125448793</a></p>
+<ol>
+<li>镜像构建成功的 0.5 分；<br>2.Redis 服务安装成功且配置正确得 0.5 分。</li>
+</ol>
+<h4 id="【题目-3】容器化-Nginx-服务-0-5-分"><a href="#【题目-3】容器化-Nginx-服务-0-5-分" class="headerlink" title="【题目 3】容器化 Nginx 服务 [0.5 分]"></a>【题目 3】容器化 Nginx 服务 [0.5 分]</h4><p>编写 Dockerfile 文件构建 hyperf-nginx:v1.0 镜像，具体要求如下：（需要用到的软件包：<br>Hyperf.tar.gz）<br>（1）基础镜像：centos:7.9.2009；<br>（2）安装 nginx 服务；<br>（3）声明端口：80；<br>（4）设置服务开机自启。<br>完成后构建镜像，并提交 master 节点的用户名、密码和 IP 地址到答题框。</p>
+<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 Hyperf]# cat Dockerfile-nginx
+FROM centos:centos7.9.2009
+MAINTAINER huhy
+RUN rm -rf /etc/yum.repos.d/*
+COPY local.repo /etc/yum.repos.d/
+COPY yum /root/yum
+RUN yum -y install nginx
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]
+
+[root@k8s-master-node1 Hyperf]# docker build -t hyperf-nginx:v1.0 -f Dockerfile-nginx .
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li>镜像构建成功得 0.3 分；<br>2.Nginx 安装成功且配置正确得 0.2 分。</li>
+</ol>
+<h4 id="【题目-4】容器化-Hyperf-服务-1-分"><a href="#【题目-4】容器化-Hyperf-服务-1-分" class="headerlink" title="【题目 4】容器化 Hyperf 服务 [1 分]"></a>【题目 4】容器化 Hyperf 服务 [1 分]</h4><p>编写 Dockerfile 文件构建 hyperf-service:v1.0 镜像，具体要求如下：（需要用到的软件包：<br>Hyperf.tar.gz）<br>（1）基础镜像：centos:7.9.2009；<br>（2）安装 PHP 及扩展；<br>（3）使用源码编译安装 Swoole。<br>完成后构建镜像，并提交 master 节点的用户名、密码和 IP 地址到答题框。</p>
+<pre class="line-numbers language-none"><code class="language-none">FROM centos:centos7.9.2009
+MAINTAINER huhy
+RUN rm -rf /etc/yum.repos.d/*
+# 上传repo文件
+COPY local.repo /etc/yum.repos.d/
+# 上传yum源
+COPY yum /root/yum
+# 上传swoole
+COPY swoole-v4.8.3.zip /root/
+# 安装php及相关扩展
+RUN yum -y install php php-cli php-fpm php-mbstring php-pdo php-mysqlnd php-redis php-zip php-gd php-xml php-pear php-devel
+# 安装编译所需的工具
+RUN yum -y install gcc make autoconf libc-dev pkg-config
+# 复制Swoole源码到容器中
+COPY swoole-v4.8.3.zip /usr/local/src/swoole-v4.8.3.zip
+# 解压Swoole源码
+RUN yum install -y unzip
+RUN cd /root/ &amp;&amp; unzip swoole-v4.8.3.zip -d /usr/local/src/
+# 编译Swoole并安装
+RUN cd /usr/local/src/swoole-v4.8.3/ &amp;&amp; phpize &amp;&amp; ./configure --enable-openssl --enable-http2 --enable-sockets &amp;&amp; make &amp;&amp; make install
+# 设置工作目录
+WORKDIR /var/www
+# 将PHP配置文件复制到容器中
+COPY project /var/www/
+# 暴露端口
+EXPOSE 9501
+# 设置开机启动
+CMD ["php", "/var/www/backend/bin/hyperf.php", "start"]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 Hyperf]# docker build -t hyperf-service:v1.0 -f Dockerfile-php .
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol>
+<li>镜像构建成功得 0.5 分；<br>2.PHP 安装成功得 0.2 分；<br>3.Swoole 安装成功得 0.3 分。</li>
+</ol>
+<h4 id="【题目-5】编排部署-Hyperf-框架-3-5-分"><a href="#【题目-5】编排部署-Hyperf-框架-3-5-分" class="headerlink" title="【题目 5】编排部署 Hyperf 框架 [3.5 分]"></a>【题目 5】编排部署 Hyperf 框架 [3.5 分]</h4><p>编写 / root/hyperf/project/docker-compose.yaml 文件，具体要求如下：<br>（1）容器 1 名称：hyperf-mysql；镜像：hyperf-mariadb:v1.0；端口映射：3306:3306；<br>（2）容器 2 名称：hyperf-redis；镜像：hyperf-redis:v1.0；<br>（3）容器 3 名称：hyperf-ui；镜像：hyperf-nginx:v1.0；端口映射：80:8081；<br>（4）容器 4 名称：hyperf-service；镜像：hyperf-service:v1.0。<br>完成后编排部署 Hyperf 框架，并提交 master 节点的用户名、密码和 IP 地址到答题框。</p>
+<pre class="line-numbers language-none"><code class="language-none">version: '3.1'
+services:
+  app:
+    container_name: hyperf-service
+    image:  hyperf-service:v1.0
+    command:
+      - /bin/sh
+      - -c
+      - |    #下面都是启动容器后服务会执行的命名
+        cd /data
+        cp .env.dev.docker .env
+        php -d memory_limit=-1 `which composer` i --no-dev
+        rm -rf runtime/*
+        php bin/hyperf.php start
+    volumes:
+      - ./backend:/data
+    tty: true
+    links:
+      - mysql
+      - redis
+    environment:
+      HOST_IP: 127.0.0.1
+      HOST_PORT: 9511
+  mysql:
+    container_name: hyperf-mysql
+    image: hyperf-mariadb:v1.0
+    ports:
+      - 3306:3306
+    restart: always
+  redis:
+    image: hyperf-redis:v1.0
+    container_name: hyperf-redis
+    restart: always
+  nginx:
+    image: hyperf-nginx:v1.0
+    container_name: hyperf-nginx
+    ports:
+      - 8081:80
+    links:
+      - app
+    volumes:
+      - ./conf.d/:/etc/nginx/conf.d
+      - ./docker/log:/var/log/nginx
+      - ./frontend:/var/www/frontend
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>.docker-compose.yaml 文件编排成功得 1.5 分；<br>2.8081 端口访问服务成功得 1 分；<br>3.Hyperf-service 连接数据库和 Redis 成功得 1 分。</p>
 
                 
             </div>
@@ -613,7 +669,7 @@ Password: HCsr5VFAp28N*****************=
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lsknawm.github.io/2023/10/03/k8s-bu-shu-gitlab-deployment-ji-yu-nfs-jin-xing-shu-ju-chi-jiu-hua-xue-liang-bian-cheng-shou-ji-de-bo-ke-csdn-bo-ke/">https://lsknawm.github.io/2023/10/03/k8s-bu-shu-gitlab-deployment-ji-yu-nfs-jin-xing-shu-ju-chi-jiu-hua-xue-liang-bian-cheng-shou-ji-de-bo-ke-csdn-bo-ke/</a>
+                    <a href="https://lsknawm.github.io/2023/10/03/yun-ji-suan-guo-sai-rong-qi-yun-ying-yong-bu-shu/">https://lsknawm.github.io/2023/10/03/yun-ji-suan-guo-sai-rong-qi-yun-ying-yong-bu-shu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -651,8 +707,8 @@ Password: HCsr5VFAp28N*****************=
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/kubernetes/">
-                                    <span class="chip bg-color">kubernetes</span>
+                                <a href="/tags/%E5%AE%B9%E5%99%A8%E4%BA%91/">
+                                    <span class="chip bg-color">容器云</span>
                                 </a>
                             
                         </div>
@@ -735,13 +791,13 @@ Password: HCsr5VFAp28N*****************=
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/10/03/init-rong-qi-kubernetesinit-rong-qi-kubernetes/">
+                <a href="/2023/10/03/pod-de-sheng-ming-zhou-qi-kubernetespod-de-sheng-ming-zhou-qi-kubernetes/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Init 容器 - KubernetesInit 容器 - Kubernetes">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Pod 的生命周期 - KubernetesPod 的生命周期 - Kubernetes">
                         
-                        <span class="card-title">Init 容器 - KubernetesInit 容器 - Kubernetes</span>
+                        <span class="card-title">Pod 的生命周期 - KubernetesPod 的生命周期 - Kubernetes</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -776,13 +832,13 @@ Password: HCsr5VFAp28N*****************=
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/10/03/pod-kubernetespod-kubernetes/">
+                <a href="/2023/10/03/rong-qi-yun-xing-shi-lei-runtime-class-kubernetes-rong-qi-yun-xing-shi-lei-runtime-class-kubernetes/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Pod - KubernetesPod - Kubernetes">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="容器运行时类（Runtime Class） - Kubernetes 容器运行时类（Runtime Class） - Kubernetes">
                         
-                        <span class="card-title">Pod - KubernetesPod - Kubernetes</span>
+                        <span class="card-title">容器运行时类（Runtime Class） - Kubernetes 容器运行时类（Runtime Class） - Kubernetes</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
