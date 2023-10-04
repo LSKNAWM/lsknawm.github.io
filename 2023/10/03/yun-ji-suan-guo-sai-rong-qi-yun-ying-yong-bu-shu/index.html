@@ -455,13 +455,13 @@
             <div id="articleContent">
                 <h4 id="容器云应用部署"><a href="#容器云应用部署" class="headerlink" title="容器云应用部署"></a>容器云应用部署</h4><ul>
 <li><ul>
-<li><a href="#_2Docker_Compose_70__4">【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]</a></li>
+<li>【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]</li>
 <li><ul>
-<li><a href="#_1_MariaDB_1__8">【题目 1】容器化 MariaDB 服务 [1 分]</a></li>
-<li><a href="#_2Redis_1__72">【题目 2】容器化 Redis 服务 [1 分]</a></li>
-<li><a href="#_3Nginx_05__101">【题目 3】容器化 Nginx 服务 [0.5 分]</a></li>
-<li><a href="#_4Hyperf_1__129">【题目 4】容器化 Hyperf 服务 [1 分]</a></li>
-<li><a href="#_5Hyperf_35__177">【题目 5】编排部署 Hyperf 框架 [3.5 分]</a></li>
+<li>【题目 1】容器化 MariaDB 服务 [1 分]</li>
+<li>【题目 2】容器化 Redis 服务 [1 分]</li>
+<li>【题目 3】容器化 Nginx 服务 [0.5 分]</li>
+<li>【题目 4】容器化 Hyperf 服务 [1 分]</li>
+<li>【题目 5】编排部署 Hyperf 框架 [3.5 分]</li>
 </ul>
 </li>
 </ul>
@@ -469,12 +469,11 @@
 </ul>
 <p>前言：前三题都是常见的容器构建，而第四题的构建是自己推测的，存在一点问题，仅供学习参考，还未解决，最后的 docker-compose 则是借鉴的，是没啥问题的。</p>
 <p>有需要可以加群 q726922223 大家相互交流一下解题思路。</p>
-<h3 id="【任务-2】容器云应用部署：Docker-Compose-编排部署-7-0-分"><a href="#【任务-2】容器云应用部署：Docker-Compose-编排部署-7-0-分" class="headerlink" title="【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]"></a>【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]</h3><p>Hyperf 是一个高性能、高灵活性的渐进式 PHP <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%8D%8F%E7%A8%8B&amp;spm=1001.2101.3001.7020">协程</a>框架，内置协程服务器及大量常用的组件，性能较传统基于 PHP-FPM 的框架有质的提升，提供超高性能的同时，也保持着极其灵活的可扩展性。请根据要求完成数据库服务 MariaDB、缓存服务 Redis、微服务 Hyperf 及前端服务 Nginx 按照要求进行容器化。</p>
-<h4 id="【题目-1】容器化-MariaDB-服务-1-分"><a href="#【题目-1】容器化-MariaDB-服务-1-分" class="headerlink" title="【题目 1】容器化 MariaDB 服务 [1 分]"></a>【题目 1】容器化 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=MariaDB&amp;spm=1001.2101.3001.7020">MariaDB</a> 服务 [1 分]</h4><p>编写 Dockerfile 文件构建 hyperf-mariadb:v1.0 镜像，具体要求如下：（需要用到的软件包：<br>Hyperf.tar.gz）</p>
+<h3 id="【任务-2】容器云应用部署：Docker-Compose-编排部署-7-0-分"><a href="#【任务-2】容器云应用部署：Docker-Compose-编排部署-7-0-分" class="headerlink" title="【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]"></a>【任务 2】容器云应用部署：Docker Compose 编排部署 [7.0 分]</h3><p>Hyperf 是一个高性能、高灵活性的渐进式 PHP 协程 框架，内置协程服务器及大量常用的组件，性能较传统基于 PHP-FPM 的框架有质的提升，提供超高性能的同时，也保持着极其灵活的可扩展性。请根据要求完成数据库服务 MariaDB、缓存服务 Redis、微服务 Hyperf 及前端服务 Nginx 按照要求进行容器化。</p>
+<h4 id="【题目-1】容器化-MariaDB-服务-1-分"><a href="#【题目-1】容器化-MariaDB-服务-1-分" class="headerlink" title="【题目 1】容器化 MariaDB 服务 [1 分]"></a>【题目 1】容器化 MariaDB 服务 [1 分]</h4><p>编写 Dockerfile 文件构建 hyperf-mariadb:v1.0 镜像，具体要求如下：（需要用到的软件包：<br>Hyperf.tar.gz）</p>
 <p>（1）基础镜像：centos:7.9.2009；<br>（2）完成 MariaDB 服务的安装；<br>（3）声明端口：3306；<br>（4）设置数据库 root 用户的密码为 root；<br>（5）将提供的数据库文件 hyperf_admin.sql 导入数据库；<br>（6）设置服务开机自启。<br>完成后构建镜像，并提交 master 节点的用户名、密码和 IP 地址到答题框。</p>
-<p>1，上传 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=centos%E9%95%9C%E5%83%8F&amp;spm=1001.2101.3001.7020">centos 镜像</a></p>
-<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 images]# docker load -i centos_7.9.2009.tar
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>1，上传 centos 镜像</p>
+<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 images]# docker load -i centos_7.9.2009.tar<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>2，构建初始化脚本</p>
 <pre class="line-numbers language-none"><code class="language-none">#mysql初始化自启动脚本
@@ -486,8 +485,7 @@ mysqld_safe --user=root &amp;
 sleep 8
 mysqladmin -u root password 'root'
 mysql -uroot -proot -e "grant all on *.* to 'root'@'%' identified by 'root'; flush privileges;"
-mysql -uroot -proot -e " source /opt/hyperf_admin.sql;"
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+mysql -uroot -proot -e " source /opt/hyperf_admin.sql;"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>3，配置 yum 源</p>
 <pre class="line-numbers language-none"><code class="language-none">#镜像本地yum源
@@ -496,8 +494,7 @@ mysql -uroot -proot -e " source /opt/hyperf_admin.sql;"
 name=hypref
 baseurl=file:///root/yum
 gpgcheck=0
-enabled=1
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+enabled=1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>4，开始构建</p>
 <pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 Hyperf]# cat Dockerfile-mariadb
@@ -514,8 +511,7 @@ RUN bash /opt/mysql_init.sh
 EXPOSE 3306
 CMD ["mysqld_safe","--user=root"]
 
-[root@k8s-master-node1 Hyperf]# docker build -t hyperf-mariadb:v1.0 -f Dockerfile-mariadb .
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@k8s-master-node1 Hyperf]# docker build -t hyperf-mariadb:v1.0 -f Dockerfile-mariadb .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ol>
 <li>镜像构建成功得 0.5 分；  </li>
@@ -534,8 +530,7 @@ RUN sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf &amp;&amp; \
 EXPOSE 6379
 CMD ["/usr/bin/redis-server","/etc/redis.conf"]
 
-[root@k8s-master-node1 Hyperf]# docker build -t hyperf-redis:v1.0 -f Dockerfile-redis .
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@k8s-master-node1 Hyperf]# docker build -t hyperf-redis:v1.0 -f Dockerfile-redis .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ol>
 <li>镜像构建成功的 0.5 分；<br>2.Redis 服务安装成功且配置正确得 0.5 分。</li>
@@ -551,8 +546,7 @@ RUN yum -y install nginx
 EXPOSE 80
 CMD ["nginx","-g","daemon off;"]
 
-[root@k8s-master-node1 Hyperf]# docker build -t hyperf-nginx:v1.0 -f Dockerfile-nginx .
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@k8s-master-node1 Hyperf]# docker build -t hyperf-nginx:v1.0 -f Dockerfile-nginx .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ol>
 <li>镜像构建成功得 0.3 分；<br>2.Nginx 安装成功且配置正确得 0.2 分。</li>
@@ -585,11 +579,9 @@ COPY project /var/www/
 # 暴露端口
 EXPOSE 9501
 # 设置开机启动
-CMD ["php", "/var/www/backend/bin/hyperf.php", "start"]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+CMD ["php", "/var/www/backend/bin/hyperf.php", "start"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 Hyperf]# docker build -t hyperf-service:v1.0 -f Dockerfile-php .
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master-node1 Hyperf]# docker build -t hyperf-service:v1.0 -f Dockerfile-php .<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol>
 <li>镜像构建成功得 0.5 分；<br>2.PHP 安装成功得 0.2 分；<br>3.Swoole 安装成功得 0.3 分。</li>
@@ -638,9 +630,7 @@ services:
     volumes:
       - ./conf.d/:/etc/nginx/conf.d
       - ./docker/log:/var/log/nginx
-      - ./frontend:/var/www/frontend
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+      - ./frontend:/var/www/frontend<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>.docker-compose.yaml 文件编排成功得 1.5 分；<br>2.8081 端口访问服务成功得 1 分；<br>3.Hyperf-service 连接数据库和 Redis 成功得 1 分。</p>
 
